@@ -997,6 +997,7 @@ void giaoDienForm(string strText) {
     this_thread::sleep_for(chrono::seconds(1));
     textColor(14);
     if (strText == "Ta Cha Hao Bank") {
+        goTo(0, 0, 14);
         giaoDienDangNhap();
     }
     if (strText == "Dang nhap") {
@@ -1251,9 +1252,10 @@ void diChuyen(map<int, string>mViTri, int iPos, int iPosMax, int iPosX, int iPos
 
     string strText = "";
     char cNhap;
-    while ((cNhap = _getch()) != 27) {
+    while ((cNhap = _getch()) != 'k') {
         switch (cNhap) {
         case 13:
+            goTo(0, 0, 14);
             giaoDienForm(mViTri[iPos]);
         case 72://UP
             viTriXY(mViTri[iPos], iPos, 14, iPosX, iPosY);
@@ -1272,14 +1274,12 @@ void diChuyen(map<int, string>mViTri, int iPos, int iPosMax, int iPosX, int iPos
                 viTriXY(mViTri[iPos], iPos, 139, iPosX, iPosY);
             }
             break;
+        case 27:
+            if (strText == "Thoat") giaoDienForm("Thoat");        
+            giaoDienForm("Ta Cha Hao Bank");
         }
     }
-    if (strText == "Dang nhap User" || strText == "Dang nhap Admin") {
-        giaoDienForm("Ta Cha Hao Bank");
-    }
-    if (strText == "Thoat") {
-        giaoDienForm("Thoat");
-    }
+
 }
 
 void nhapIDXacNhan(string& strText, int iPosX, int iPosY) {

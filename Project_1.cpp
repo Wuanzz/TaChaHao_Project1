@@ -1299,7 +1299,7 @@ void nhapPINXacNhan(string& strText, int iPosX, int iPosY) {
     strText = "Thoat";
 }
 
-void NhapID(string& strText, int iPosX, int iPosY) {
+void nhapID(string& strText, int iPosX, int iPosY) {
     char cNhap;
     while ((cNhap = _getch()) != 27) {
         if (cNhap == 13) {
@@ -1329,7 +1329,7 @@ void NhapID(string& strText, int iPosX, int iPosY) {
     strText = "Thoat";
 }
 
-void NhapPIN(string& strText, int iPosX, int iPosY) {
+void nhapPIN(string& strText, int iPosX, int iPosY) {
     string strTam = "";
     char cNhap;
     while ((cNhap = _getch()) != 27) {
@@ -1369,13 +1369,13 @@ void diChuyenDangNhap(map<int, string>mDangNhap, int iPosX, int iPosY) {
     char cNhap;
     string strText = "";
     goTo(7, 3, 14);
-    NhapID(strId, 7, 3);
+    nhapID(strId, 7, 3);
     if (strId == "Thoat") {
         Us.inFileUser();
         giaoDienForm("Dang nhap");
     }
     goTo(7, 4, 14);
-    NhapPIN(strPin, 7, 4);
+    nhapPIN(strPin, 7, 4);
     if (strPin == "Thoat") {
         Us.inFileUser();
         giaoDienForm("Dang nhap");

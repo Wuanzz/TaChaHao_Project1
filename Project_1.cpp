@@ -119,6 +119,7 @@ bool tinhBoiSo(string strType, long lSoTien, long lBal);
 long chuyenLoaiTien(string strTypeNhan, string strTypeChuyen, long lBal, long lTienNhan);
 void nhapIDXacNhan(string& strText, int iPosX, int iPosY);
 void nhapPINXacNhan(string& strText, int iPosX, int iPosY);
+void nhapTienVaKiemtra(long& lSoTien);
 
 TaiKhoan<Admin> Ad;
 TaiKhoan<User> Us;
@@ -567,7 +568,14 @@ void TaiKhoan<T>::rutTien(string strId) {
 
     goTo(26, 11, 7);
     long lSoTien;
-    cin >> lSoTien;
+    nhapTienVaKiemtra(lSoTien);
+    if (lSoTien == -1) {
+        viTriXY("Vui long nhap so tien can giao dich!       ", 0, 4, 1, 14);
+        this_thread::sleep_for(chrono::seconds(2));
+        goTo(3, 17, 0);
+        giaoDienUser(strId);
+    }
+    //cin >> lSoTien;
     if (!kiemTraTien(pTam->_tData.getType(), pTam->_tData.getBal(), lSoTien)) {
         this_thread::sleep_for(chrono::seconds(2));
         giaoDienUser(strId);
@@ -680,7 +688,14 @@ void TaiKhoan<T>::chuyenTien(string strId) {
     cout << pTam->_tData.getBal() << pTam->_tData.getType() << endl;
     goTo(26, 11, 7);
     long lSoTien;
-    cin >> lSoTien;
+    nhapTienVaKiemtra(lSoTien);
+    if (lSoTien == -1) {
+        viTriXY("Vui long nhap so tien can giao dich!       ", 0, 4, 1, 15);
+        this_thread::sleep_for(chrono::seconds(2));
+        goTo(3, 17, 0);
+        giaoDienUser(strId);
+    }
+    //cin >> lSoTien;
 
     if (!kiemTraTien(pTam->_tData.getType(), pTam->_tData.getBal(), lSoTien)) {
         this_thread::sleep_for(chrono::seconds(2));
@@ -1636,7 +1651,27 @@ long chuyenLoaiTien(string strTypeNhan, string strTypeChuyen, long lBal, long lT
     }
     return lBal;
 }
-
+void nhapTienVaKiemtra(long& lSoTien) {
+    char cNhap;
+    string strText = "";
+    while ((cNhap = _getch()) != 27) {
+        if (cNhap == 13) {
+            if (strText == "") lSoTien = -1;
+            else lSoTien = stoi(strText);
+            return;
+        }
+        if (cNhap >= 48 && cNhap <= 57) {
+            strText += cNhap;
+            viTriXY(strText, 0, 7, 26, 11);
+        }
+        if (cNhap == 8) {
+            strText.pop_back();
+            cout << "\b \b";
+        }
+    }
+    lSoTien = -1;
+    return;
+}
 int main() {
     Ad.loadFileAdmin();
     Us.loadFileUser();

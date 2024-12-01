@@ -165,7 +165,7 @@ bool User::testLogin(string strId, string strPin) {
         this->setCnt(this->_iCnt - 1);
         if (this->_iCnt > 0) {
             goTo(1, 5, 12);
-            cout << "Ban con " << this-> _iCnt << " lan dang nhap!               ";
+            cout << "Ban con " << this->_iCnt << " lan dang nhap!               ";
 
         }
         else {
@@ -634,7 +634,18 @@ void TaiKhoan<T>::rutTien(string strId) {
             }
         }
     }
-    Fout << ltm.tm_mday << "/" << 1 + ltm.tm_mon << "/" << 1900 + ltm.tm_year << endl;
+    if (ltm.tm_mday < 10) {
+        Fout << "0" << ltm.tm_wday << "/";
+        if (ltm.tm_mon + 1 < 10) {
+            Fout << "0" << 1 + ltm.tm_mon << "/" << 1900 + ltm.tm_year << endl;
+        }
+    }
+    else {
+        Fout << ltm.tm_wday << "/";
+        if (ltm.tm_mon + 1 < 10) {
+            Fout << "0" << 1 + ltm.tm_mon << "/" << 1900 + ltm.tm_year << endl;
+        }
+    }
     Fout.close();
     Us.inFileUser();
     viTriXY("Xac nhan rut tien thanh cong!              ", 0, 2, 1, 15);
@@ -755,7 +766,20 @@ void TaiKhoan<T>::chuyenTien(string strId) {
             }
         }
     }
-    Fout << ltm.tm_mday << "/" << 1 + ltm.tm_mon << "/" << 1900 + ltm.tm_year << endl;
+
+    if (ltm.tm_mday < 10) {
+        Fout << "0" << ltm.tm_wday << "/";
+        if (ltm.tm_mon + 1 < 10) {
+            Fout << "0" << 1 + ltm.tm_mon << "/" << 1900 + ltm.tm_year << endl;
+        }
+    }
+    else {
+        Fout << ltm.tm_wday << "/";
+        if (ltm.tm_mon + 1 < 10) {
+            Fout << "0" << 1 + ltm.tm_mon << "/" << 1900 + ltm.tm_year << endl;
+        }
+    }
+
     Fout.close();
     lSoDu = chuyenLoaiTien(pCur->_tData.getType(), pTam->_tData.getType(), pCur->_tData.getBal(), lSoTien);
     lSoTien = chuyenLoaiTien(pCur->_tData.getType(), pTam->_tData.getType(), 0, lSoTien);
@@ -1618,4 +1642,3 @@ int main() {
     Us.loadFileUser();
     giaoDienDangNhap();
 }
-
